@@ -11,7 +11,10 @@ if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE'])==$lastModified || $etagHeader
        exit;
 }
 header('Content-Type: text/css');
-$id = uniqid('tracking-id_', true);
+$prefix = $_GET['prefix'];
+if(!isset($prefix))
+	$prefix = "tracking-id_";
+$id = uniqid($prefix, true);
 $css = <<<EOT
 #email-address:after {
 	content: '$id';
